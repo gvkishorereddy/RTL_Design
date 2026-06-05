@@ -1,0 +1,22 @@
+module bonus1 #(
+    parameter SIZE = 16, // Width of the data input and output
+    parameter SHAMT_SIZE = $clog2(SIZE) // Width of the shift amount input
+)(
+    // Do not modify the input/output ports of this module
+    input  [SIZE-1:0]       data_i                 , // Input data to be rotated
+    input  [SHAMT_SIZE-1:0] shamt_i                , // Shift amount (number of positions to rotate)
+    output [SIZE-1:0]       result_by_shift_o      , // Output result computed using the shift approach
+    output [SIZE-1:0]       result_by_borders_o      // Output result computed using the border extension approach
+);
+// Local signal declaration
+logic [2*SIZE-1:0] result_by_borders_o_comb;
+
+
+// Approach 1: Using shift and OR
+assign result_by_shift_o = (data_i << shamt_i) | (data_i >> (SIZE - shamt_i));
+
+// Approach 2: Using border extension
+assign result_by_borders_o_comb   = {data_i, data_i} << shamt_i;
+assign result_by_borders_o        = result_by_borders_o_comb[2*SIZE-1:SIZE];
+
+endmodule
