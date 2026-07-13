@@ -1,4 +1,4 @@
-// Day 19: Fully Parameterized Synchronous FIFO (Fixed)
+
 module day19 #(
   parameter DEPTH   = 4,
   parameter DATA_W  = 1
